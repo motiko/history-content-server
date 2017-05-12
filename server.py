@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import json
 import requests
+import os
 from pprint import pprint
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 
