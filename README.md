@@ -11,8 +11,6 @@ $ curl -X POST -d '{"query":"HTTPServer", "urls":["http://stackoverflow.com/ques
 
 # TODO
 
-Async request (respond immediately with request_id) (must!!)
-
 Benchmarking tests
 Multithreaded search
 Sophisticated parsing (strip invisible tags)

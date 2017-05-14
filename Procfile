@@ -1,1 +1,2 @@
-web: python server.py
+web: python -u server.py
+worker: python -u worker.py
