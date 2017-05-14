@@ -11,8 +11,7 @@ $ curl -X POST -d '{"query":"HTTPServer", "urls":["http://stackoverflow.com/ques
 
 # TODO
 
-Benchmarking tests
-Multithreaded search
-Sophisticated parsing (strip invisible tags)
-Consider running platform (AWS, VPS)
-Consider lang (Go, Clojure...)
+- Benchmarking tests  
+- Sophisticated parsing (strip invisible tags)  
+- Consider running platform (AWS, VPS)  
+- Consider lang (Go, Clojure...)  
