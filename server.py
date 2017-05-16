@@ -32,11 +32,34 @@ class RequestHandler(BaseHTTPRequestHandler):
         length = int(content_length[0]) if content_length else 0
         json_content = json.loads(self.rfile.read(length))
         request_id = uuid.uuid4().hex
+        if("query" not in json_content or "urls" not in json_content):
+            self.send_error(400,"JSON object has no query or urls")
+        else:
+            self.send_response(200)
+            self.send_cors_headers()
+            self.send_header('Content-type','application/json')
+            self.end_headers()
+            self.wfile.write(request_id)
+            queue.enqueue(search, request_id, json_content[query], json_content[urls])
+
+    def do_OPTIONS(self):
         self.send_response(200)
-        self.send_header('Content-type','application/json')
+        self.send_cors_headers()
         self.end_headers()
-        self.wfile.write(request_id)
-        queue.enqueue(search, request_id, json_content.get('query'), json_content.get('urls'))
+
+    def send_cors_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*');
+        self.send_header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    def send_error(self, code, message=None):
+        self.log_error("code %d, message %s", code, message)
+        self.send_response(code, message)
+        self.send_cors_headers()
+        self.send_header("Content-Type", 'application/json')
+        self.send_header('Connection', 'close')
+        self.end_headers()
+        self.wfile.write('{"error": "%d %s"}' % (code,message))
 
     do_PUT = do_POST
     do_DELETE = do_GET
