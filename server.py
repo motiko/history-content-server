@@ -19,7 +19,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         print(request_path)
         val = redis_conn.get(request_path[1:])
         if val is None:
-            self.send_response(404)
+            self.send_error(404, "Results not found")
         else:
             self.send_response(200)
             self.send_header('Content-type','application/json')
@@ -40,7 +40,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type','application/json')
             self.end_headers()
             self.wfile.write(request_id)
-            queue.enqueue(search, request_id, json_content[query], json_content[urls])
+            queue.enqueue(search, request_id, json_content["query"], json_content["urls"])
 
     def do_OPTIONS(self):
         self.send_response(200)

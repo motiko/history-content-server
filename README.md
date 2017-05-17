@@ -1,8 +1,12 @@
 # Server for Search in URLs
 
-Currently running in heroku : http://fathomless-tundra-65369.herokuapp.com
+Running in heroku : http://fathomless-tundra-65369.herokuapp.com
 
-Sample usage.
+## Run locally
+
+`$ foreman start`
+
+## Sample usage.
 
 ```bash
 $ curl -X POST -d '{"query":"HTTPServer", "urls":["http://stackoverflow.com/questions/16069816/getting-python-error-from-cant-read-var-mail-bio", "https://gist.github.com/huyng/814831"]}' -H 'Content-Type: application/json' http://fathomless-tundra-65369.herokuapp.com
@@ -11,5 +15,7 @@ $ curl -X POST -d '{"query":"HTTPServer", "urls":["http://stackoverflow.com/ques
 
 # TODO
 
-- Benchmarking tests  
-- Consider scaling
+- Benchmarks
+- Scaling
+- Redis configs
+- DB for url caching ?
